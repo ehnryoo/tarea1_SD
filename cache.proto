@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+// Definición del mensaje para la solicitud de un personaje
+message CharacterRequest {
+  int32 character_id = 1;
+}
+
+// Definición del mensaje para la respuesta de un personaje
+message CharacterResponse {
+  string name = 1;
+  string status = 2;
+  string species = 3;
+  string type = 4;
+  string gender = 5;
+  string origin = 6;
+  string location = 7;
+  string image = 8;
+  repeated string episodes = 9;
+}
+
+// Definición del servicio de caché
+service CacheService {
+  // Método para obtener un personaje por su ID
+  rpc GetCharacterById (CharacterRequest) returns (CharacterResponse) {}
+}
