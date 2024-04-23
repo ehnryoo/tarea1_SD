@@ -8,4 +8,6 @@ cd tarea1_SD
 
 sudo docker-compose up --build 
 
+
+
 sudo docker-compose exec cache-server-classic python tests/test.py
