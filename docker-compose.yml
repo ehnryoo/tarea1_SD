@@ -4,27 +4,42 @@ services:
   cache-server-classic:
     build: .
     ports:
-      - "5000:5000"
+      - "50051:50051"  # Mapeamos el puerto 50051 del contenedor al puerto 50051 del host
     volumes:
       - ./data:/app/data
+    command: ["python", "cache_server.py"]  # Ajusta el comando según el servidor
 
   cache-server-partitioned:
     build: .
     ports:
-      - "5001:5000"
+      - "50052:50051"  # Mapeamos el puerto 50051 del contenedor al puerto 50052 del host
     environment:
       - PARTITIONED=true
     volumes:
       - ./data:/app/data
+    command: ["python", "server_parti.py"]  # Ajusta el comando según el servidor
 
   cache-server-replicated:
     build: .
     ports:
-      - "5002:5000"
+      - "50053:50051"  # Mapeamos el puerto 50051 del contenedor al puerto 50053 del host
     environment:
       - REPLICATED=true
     volumes:
       - ./data:/app/data
+    command: ["python", "server_repli.py"]  # Ajusta el comando según el servidor
+
+  api-test:
+    build: .
+    ports:
+      - "5000:5000"  # Puerto de la API
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - cache-server-classic
+      - cache-server-partitioned
+      - cache-server-replicated
+    command: ["python", "test.py"]  # Comando para iniciar la API de prueba
 
   redis-cache-classic:
     image: redis
