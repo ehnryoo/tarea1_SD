@@ -2,9 +2,10 @@ Tarea 1 - Sistemas Distribuidos, 1-2024
 Ernesto Villa y Cristóbal Barra
 
 
-git clone 
-cd TAREA1-ERNESTOVILLA-CRISTOBALBARRA
+git clone https://github.com/ehnryoo/tarea1_SD
 
-docker-compose up --build 
+cd tarea1_SD
 
-docker-compose exec cache-server-classic python tests/test.py
+sudo docker-compose up --build 
+
+sudo docker-compose exec cache-server-classic python tests/test.py
